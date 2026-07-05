@@ -227,10 +227,10 @@ export default function AdminPage() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-7xl px-4 py-8">
+      <div className="mx-auto max-w-7xl px-4 py-4 sm:py-8">
         {/* Message */}
         {message && (
-          <div className={`mb-6 rounded-lg p-4 text-sm ${
+          <div className={`mb-4 rounded-lg p-3 text-sm sm:mb-6 sm:p-4 ${
             message.type === "success" ? "bg-success/10 text-success" : "bg-danger/10 text-danger"
           }`}>
             {message.text}
@@ -238,16 +238,16 @@ export default function AdminPage() {
         )}
 
         {/* Actions */}
-        <div className="mb-6 flex items-center justify-between">
-          <h1 className="text-2xl font-bold">Site Settings</h1>
-          <div className="flex gap-3">
-            <button onClick={handleReset} className="rounded-lg border border-border px-4 py-2 text-sm text-text-secondary hover:text-text-primary">
-              Reset to Defaults
+        <div className="mb-4 flex flex-col gap-3 sm:mb-6 sm:flex-row sm:items-center sm:justify-between">
+          <h1 className="text-xl font-bold sm:text-2xl">Site Settings</h1>
+          <div className="flex gap-2 sm:gap-3">
+            <button onClick={handleReset} className="flex-1 rounded-lg border border-border px-3 py-2 text-xs text-text-secondary hover:text-text-primary sm:flex-none sm:px-4 sm:text-sm">
+              Reset
             </button>
             <button
               onClick={handleSave}
               disabled={saving}
-              className="rounded-lg bg-primary px-6 py-2 text-sm font-semibold text-white hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-50"
+              className="flex-1 rounded-lg bg-primary px-4 py-2 text-xs font-semibold text-white hover:-translate-y-0.5 hover:shadow-lg disabled:opacity-50 sm:flex-none sm:px-6 sm:text-sm"
             >
               {saving ? "Saving..." : "Save Changes"}
             </button>
@@ -255,24 +255,26 @@ export default function AdminPage() {
         </div>
 
         {/* Tabs */}
-        <div className="mb-6 flex gap-1 overflow-x-auto border-b border-border pb-px">
-          {tabs.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`whitespace-nowrap px-4 py-3 text-sm font-medium transition-colors ${
-                activeTab === tab.id
-                  ? "border-b-2 border-primary text-primary"
-                  : "text-text-muted hover:text-text-secondary"
-              }`}
-            >
-              {tab.label}
-            </button>
-          ))}
+        <div className="mb-4 -mx-4 overflow-x-auto px-4 sm:mb-6 sm:mx-0 sm:px-0">
+          <div className="flex gap-0.5 border-b border-border sm:gap-1">
+            {tabs.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`whitespace-nowrap px-3 py-2.5 text-xs font-medium transition-colors sm:px-4 sm:py-3 sm:text-sm ${
+                  activeTab === tab.id
+                    ? "border-b-2 border-primary text-primary"
+                    : "text-text-muted hover:text-text-secondary"
+                }`}
+              >
+                {tab.label}
+              </button>
+            ))}
+          </div>
         </div>
 
         {/* Tab Content */}
-        <div className="rounded-2xl border border-border bg-surface-card p-6">
+        <div className="rounded-xl border border-border bg-surface-card p-4 sm:rounded-2xl sm:p-6">
           {activeTab === "branding" && (
             <div className="space-y-6">
               <h2 className="text-lg font-semibold">Branding Settings</h2>
@@ -299,10 +301,10 @@ export default function AdminPage() {
           )}
 
           {activeTab === "stats" && (
-            <div className="space-y-6">
-              <h2 className="text-lg font-semibold">Statistics</h2>
+            <div className="space-y-4 sm:space-y-6">
+              <h2 className="text-base font-semibold sm:text-lg">Statistics</h2>
               {settings.stats.map((stat, i) => (
-                <div key={i} className="grid grid-cols-2 gap-4">
+                <div key={i} className="grid grid-cols-1 gap-3 sm:grid-cols-2 sm:gap-4">
                   <Field label={`Stat ${i + 1} Label`} value={stat.label} onChange={(v) => {
                     const newStats = [...settings.stats];
                     newStats[i] = { ...newStats[i], label: v };
